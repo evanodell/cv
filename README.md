@@ -1,8 +1,7 @@
-*CV template adapted from [S. Miller](https://github.com/svmiller/svm-r-markdown-templates)* 
 
-[PDF version of extended CV
-available](https://github.com/TrashBirdEcology/cv/blob/master/burnett_extendedCV.pdf)
+# CV
 
+CV template adapted from [Jessica Burnett](https://github.com/TrashBirdEcology/cv) which is in turn based on [S. Miller](https://github.com/svmiller/svm-r-markdown-templates)'s templates.
 
 
  

@@ -61,9 +61,9 @@ _Disability Rights UK_ \hfill June 2016 - present
 
 - Responsible for policy work on employment issues, and research on any additional issues prioritised by Disability Rights UK. This included writing briefing papers for internal and external use, responding to consultations, monitoring government policy developments and work from other sources.  
 
-- Produced statistical briefing papers and presentations based on my analysis of a range of sources, primary the Labour Force Survey and the Family Resources Survey, but including other national and international surveys and administrative data.
+- Produced statistical briefing papers and presentations based on my analysis of a range of sources, using national and international surveys and administrative data.
 
-- Primary researcher and annual report author evaluating "Bridge to Work", a City Bridge Trust-funded programme of training, work experience and employer engagement to increase young disabled people's employment. The evaluation focuses on changes in employer attitudes and overall impact on participant employment. <!--"Bridge to Work" consists of six different delivery models, providing various kinds of work experience and additional job coaching.-->
+- Primary researcher and annual report author evaluating "Bridge to Work", a City Bridge Trust-funded programme of training, work experience and employer engagement to increase young disabled people's employment. The evaluation focuses on changes in employer attitudes and overall impact on participant employment.  
 
 - Lead researcher and programme manager for project on £40,000 research project on young people's attitudes to disability, conducted with the Centre for Education and Youth. I recruited and managed a steering group of young disabled people to determine the focus of the project and provide feedback on our research questions and findings.  
 
@@ -98,7 +98,7 @@ _Laurentian University_  \hfill October 2012 -- April 2013
 # Projects
 
 ## Bridge to Work Programme Evaluation  
-Primary researcher and annual report author \hfill January 2018 -- Present  
+Primary researcher and annual report author \hfill January 2018 -- December 2023  
 Funder: City Bridge Trust \hfill £100,000  
 
 ## Disabled People Accessing Community-Based Activities  
@@ -108,8 +108,6 @@ Funder: NHS Personalised Care Group \hfill £10,000
 ## Access to Advice Services in London  
 Data analyst and report author \hfill December 2019 -- February 2020  
 Funder: Nuffield Foundation \hfill £5,000  
-
-<!-- Grant,40000,GBP,,2 -->
 
 ## Inclusive Education and Co-Production  
 Principle investigator \hfill December 2018 -- June 2019  
@@ -129,11 +127,19 @@ Funder: Disability Research on Independent Living & Learning (DRILL) \hfill £40
 ## Peer Reviewed Articles  
 **Odell, E.** (2017). Lonely schools: The relationship between geographic isolation and academic attainment. _Educational Research_, 59(3), 257–272. DOI: [10.1080/00131881.2017.1339285](https://doi.org/10.1080/00131881.2017.1339285)  
 
-## Reports  
+## Reports and Preprints  
 Hale, C., Benstead, S., Lyus, J., **Odell, E.**, & Ruddock, A. (2020). Energy Impairment and Disability Inclusion. The Centre for Welfare Reform. [centreforwelfarereform.org/uploads/attachment/681/energy-impairment-and-disability-inclusion.pdf](https://www.centreforwelfarereform.org/uploads/attachment/681/energy-impairment-and-disability-inclusion.pdf)  
+**Odell, E.** (2020). Getting it right the ﬁrst time: Financial penalties to improve disability beneﬁt assessments. _LawArXiv_. DOI: [10.31228/osf.io/jksyp  ](https://doi.org/10.31228/osf.io/jksyp)  
 **Odell, E.** (2019). Special or Unique: Young People’s Attitudes to Disability. Disability Rights UK. [drilluk.org.uk/wp-content/uploads/2019/08/DR-UK-Special-or-Unique-August-2019.pdf](http://www.drilluk.org.uk/wp-content/uploads/2019/08/DR-UK-Special-or-Unique-August-2019.pdf)  
 Aston, J., Bennett, L., Murphy, H., **Odell, E.**, & Stevens, T. (2019). External evaluation of the Bridge to Work Programme. City Bridge Trust. [citybridgetrust.org.uk/wp-content/uploads/2019/07/Bridge-to-Work-Year-1-report.pdf](https://www.citybridgetrust.org.uk/wp-content/uploads/2019/07/Bridge-to-Work-Year-1-report.pdf)  
+**Odell, E.** (2018). Disability, Rights and Vulnerability in British Parliamentary Debate. _SocArXiv_. DOI: [10.31235/osf.io/tqf5j](https://doi.org/10.31235/osf.io/tqf5j)  
 Theobald, K., & **Odell, E.** (2015). Isolated schools: Out on a limb. Future Leaders Trust. [future-leaders.org.uk/documents/195/Isolated_schools_Out_on_a_limb.pdf](http://www.future-leaders.org.uk/documents/195/Isolated_schools_Out_on_a_limb.pdf)  
+
+
+
+
+
+
 
 ## R Packages  
 
@@ -152,3 +158,9 @@ Theobald, K., & **Odell, E.** (2015). Isolated schools: Out on a limb. Future Le
 ## Datasets
 
 **Odell, E.** (2019). Hansard Speeches V2.6.1 [dataset]. DOI: [10.5281/zenodo.780985](https://doi.org/10.5281/zenodo.780985)  
+
+# Referees
+
+- Liz Sayce, JRF Practitioner Fellow, International Inequalities Institute, London School of Economics. [liz@lizsayce.me.uk](mailto:liz@lizsayce.me.uk)
+
+- Michael Johns, Associate Professor of Political Science, Laurentian University. [mjohns@laurentian.ca](mailto:mjohns@laurentian.ca)

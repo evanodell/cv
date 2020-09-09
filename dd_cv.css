@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat|Playfair+Display&display=swap");
 
-
-
 /* Main text is monserrat*/
 body {
   font-family: "Montserrat", sans-serif;
@@ -35,6 +33,14 @@ sup {
   --pagedjs-margin-left: 0.2in;
 }
 
+/* Customize some of the sizing variables */
+:root {
+  --sidebar-width: 12rem; /* Shrink sidebar width  */
+  --sidebar-background-color: #f7fbff; /* Make sidebar blue */
+  --sidebar-horizontal-padding: 0.01in; /* Reduce sidebar padding */
+  --decorator-outer-dim: 10px; /* Make position deliniating circles larger */
+  --decorator-border: 2px solid #bdd7e7; /* Make timeline a blue as well*/
+}
 
 .details .place {
   margin-top: 0.25rem;
@@ -116,6 +122,3 @@ sup {
   margin: 0.5rem;
   box-shadow: 1px 1px 4px black;
 }
-
-
-

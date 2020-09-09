@@ -4,7 +4,7 @@ author: Evan Odell
 date: "`r Sys.Date()`"
 params:
   pdf_mode:
-    value: TRUE
+    value: FALSE
 output:
   pagedown::html_resume:
     css: ['dd_cv.css', 'resume.css']
@@ -54,7 +54,7 @@ datadrivencv::build_network_logo(CV$entries_data)
 
 ```{r}
 if(params$pdf_mode){
-  cat("View this CV online at _evanodell.com/cv/_")
+  cat("View this CV online at _[evanodell.com/cv/](https://evanodell.com/cv/)_")
 } else {
   cat("[<i class='fas fa-download'></i> Download a PDF of this CV](https://github.com/evanodell/cv/raw/master/evanodell_cv.pdf)")
 }

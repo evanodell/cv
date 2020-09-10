@@ -32,7 +32,7 @@
   --decorator-border: 2px solid #bdd7e7; /* Make timeline a blue as well*/
 
   --row-blocks-padding-top: 0.5rem;
-  --date-block-width: 0.7in;
+  --date-block-width: 0.75in;
 
   --main-blocks-title-icon-offset-left: calc(-17pt - 0.25 * var(--root-font-size));
 

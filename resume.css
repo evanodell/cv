@@ -184,6 +184,10 @@ h1, h2{
   top: 1.5pt;
 }
 
+
+
+
+
 /**** individual row blocks (date - decorator - details) ****/
 
 .blocks{
@@ -409,6 +413,13 @@ h2 {
 .blocks {
   break-inside: avoid;
 }
+
+#selected-projects .fa-map-marker-alt {
+  /* Properties */
+  visibility: hidden;
+  color: #fff;
+}
+
 
 /* Paged.js viewer */
 

@@ -41,6 +41,7 @@ create_CV_object <-  function(data_location,
       googlesheets4::read_sheet(data_location, sheet = sheet_id, skip = 1, col_types = "c")
     }
     cv$entries_data  <- read_gsheet(sheet_id = "entries")
+    cv$projects_data <- read_gsheet(sheet_id = "projects")
     cv$lang_skills   <- read_gsheet(sheet_id = "language_skills")
     cv$other_skills  <- read_gsheet(sheet_id = "other_skills")
     cv$text_blocks   <- read_gsheet(sheet_id = "text_blocks")
@@ -49,6 +50,8 @@ create_CV_object <-  function(data_location,
     # Want to go old-school with csvs?
     cv$entries_data  <- readr::read_csv(paste0(data_location,
                                                "entries.csv"), skip = 1)
+    cv$projects_data <- readr::read_csv(paste0(data_location,
+                                               "projects.csv"), skip = 1)
     cv$lang_skills   <- readr::read_csv(paste0(data_location,
                                                "language_skills.csv"), skip = 1)
     cv$other_skills  <- readr::read_csv(paste0(data_location, 
@@ -85,7 +88,36 @@ create_CV_object <-  function(data_location,
       na.rm = TRUE
     ) %>%
     dplyr::mutate(
-      description_bullets = ifelse(description_bullets != "", paste0("- ", description_bullets), ""),
+      description_bullets = ifelse(description_bullets != "",
+                                   paste0("- ", description_bullets), ""),
+      start = ifelse(start == "NULL", NA, start),
+      end = ifelse(end == "NULL", NA, end),
+      start_year = extract_year(start),
+      end_year = extract_year(end),
+      no_start = is.na(start),
+      has_start = !no_start,
+      no_end = is.na(end),
+      has_end = !no_end,
+      timeline = dplyr::case_when(
+        no_start  & no_end  ~ "N/A",
+        no_start  & has_end ~ as.character(end),
+        has_start & no_end  ~ paste("Current", "-", start),
+        TRUE                ~ paste(end, "-", start)
+      )
+    ) %>%
+    dplyr::arrange(desc(parse_dates(end))) %>%
+    dplyr::mutate_all(~ ifelse(is.na(.), 'N/A', .))
+  
+  cv$projects_data %<>%
+    tidyr::unite(
+      tidyr::starts_with('description'),
+      col = "description_bullets",
+      sep = "\n- ",
+      na.rm = TRUE
+    ) %>%
+    dplyr::mutate(
+      description_bullets = ifelse(description_bullets != "",
+                                   paste0("- ", description_bullets), ""),
       start = ifelse(start == "NULL", NA, start),
       end = ifelse(end == "NULL", NA, end),
       start_year = extract_year(start),
@@ -138,8 +170,10 @@ sanitize_links <- function(cv, text){
 }
 
 
-#' @description Take a position data frame and the section id desired and prints the section to markdown.
-#' @param section_id ID of the entries section to be printed as encoded by the `section` column of the `entries` table
+#' @description Take a position data frame and the section id desired and 
+#' prints the section to markdown.
+#' @param section_id ID of the entries section to be printed as encoded 
+#' by the `section` column of the `entries` table
 print_section <- function(cv, section_id, glue_template = "default"){
 
   if(glue_template == "default"){
@@ -170,6 +204,43 @@ print_section <- function(cv, section_id, glue_template = "default"){
 
   print(glue::glue_data(section_data, glue_template))
 
+  invisible(strip_res$cv)
+}
+
+
+#' @description Print sections
+#' @param section_id ID of the entries section to be printed as encoded 
+#' by the `section` column of the `entries` table
+print_projects <- function(cv, glue_template = "default"){
+  
+  if(glue_template == "default"){
+    glue_template <- "
+### {title}
+
+{budget}
+
+_Funded by:_ {funder}
+
+{timeline}
+
+{description_bullets}
+\n\n\n"
+  }
+  
+  section_data <- dplyr::filter(CV$projects_data) %>% dplyr::mutate(loc="")
+  
+  # Take entire entries data frame and removes the links in descending order
+  # so links for the same position are right next to each other in number.
+  for(i in 1:nrow(section_data)){
+    for(col in c('title', 'description_bullets')){
+      strip_res <- sanitize_links(cv, section_data[i, col])
+      section_data[i, col] <- strip_res$text
+      cv <- strip_res$cv
+    }
+  }
+  
+  print(glue::glue_data(section_data, glue_template))
+  
   invisible(strip_res$cv)
 }
 
@@ -231,7 +302,8 @@ print_other_skill <- function(cv, out_of = 5, bar_color = "#969696",
                                       {bar_background} {width_percent}% 100%)\"
 >{skill}</div>"
   }
-  cv$other_skills %>% dplyr::arrange(dplyr::desc(level)) %>%
+  cv$other_skills %>%
+    dplyr::arrange(dplyr::desc(level)) %>%
     dplyr::mutate(width_percent = round(100*as.numeric(level)/out_of)) %>%
     glue::glue_data(glue_template) %>%
     print()

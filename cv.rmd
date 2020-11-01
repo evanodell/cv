@@ -132,7 +132,7 @@ Selected Projects {data-icon=file-alt}
 --------------------------------------------------------------------------------
 
 ```{r}
-CV %<>% print_section('projects')
+CV %<>% print_projects()
 ```
 
 <!-- These breaks just force a new page so section doesnt get cut off -->

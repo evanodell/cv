@@ -163,3 +163,13 @@ CV %<>% print_section('packages')
 CV %<>% print_links()
 ```
 
+<!--
+
+Referees
+--------------------------------------------------------------------------------
+-->
+```{r}
+# Note the special double pipe so we modify the CV object in place
+#CV %<>% print_text_block("refs") 
+```
+

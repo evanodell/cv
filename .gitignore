@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 *old/
+auth.json
+headshot.jpg

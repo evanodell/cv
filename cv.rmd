@@ -44,11 +44,16 @@ Aside
 ================================================================================
 
 ```{r}
+## Headshot
+knitr::include_graphics("headshot.jpg")
+```
+
+```{r}
 # Build interactive network of positions colored by section
 # and connected if they occurred in the same year
 # fix this to make it more sensible, link related projects
 
-datadrivencv::build_network_logo(CV$entries_data)
+#datadrivencv::build_network_logo(CV$entries_data)
 ```
 
 
@@ -64,24 +69,25 @@ Contact {#contact}
 --------------------------------------------------------------------------------
 
 ```{r}
-CV %>% print_contact_info()
+CV %>% print_contact_info(phone=FALSE)
 ```
 
 
 
-Skills {#language-skills}
+Programming Languages {#language-skills}
 --------------------------------------------------------------------------------
-
-```{r}
-CV %>% print_other_skill()
-```
-
-</br>
 
 ```{r}
 CV %>% print_lang_skill()
 ```
 
+
+Skills {#other-skills}
+--------------------------------------------------------------------------------
+
+```{r}
+CV %>% print_other_skill()
+```
 
 
 
@@ -103,7 +109,7 @@ Evan Odell {#title}
 
 ```{r}
 # Note the special double pipe so we modify the CV object in place
-CV %<>% print_text_block("intro") 
+#CV %<>% print_text_block("intro") 
 ```
 
 
@@ -125,6 +131,19 @@ CV %<>% print_section('jobs')
 ```
 
 
+Memberships {data-icon=building}
+--------------------------------------------------------------------------------
+
+```{r}
+CV %>% print_certs_mems('member')
+```
+
+
+Certificates {data-icon=certificate}
+--------------------------------------------------------------------------------
+```{r}
+CV %<>% print_certs_mems("certs")
+```
 
 
 

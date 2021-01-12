@@ -98,7 +98,7 @@ img{
 
 .aside{
   width: var(--sidebar-width);
-  padding: 0.6in var(--sidebar-horizontal-padding);
+  padding: 0in var(--sidebar-horizontal-padding);
   font-size: 0.8rem;
   float: right;
   position: absolute;
@@ -362,7 +362,7 @@ h1, h2{
 }
 
 .aside .level2{
-  margin-top: 12.7mm;
+  margin-top: 7.5mm;
 }
 
 #contact ul{

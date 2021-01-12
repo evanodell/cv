@@ -23,7 +23,8 @@ create_CV_object <-  function(data_location,
     links = c()
   )
 
-  is_google_sheets_location <- stringr::str_detect(data_location, "docs\\.google\\.com")
+  is_google_sheets_location <- stringr::str_detect(data_location,
+                                                   "docs\\.google\\.com")
 
   if(is_google_sheets_location){
     if(sheet_is_publicly_readable){
@@ -41,15 +42,35 @@ create_CV_object <-  function(data_location,
       googlesheets4::read_sheet(data_location, sheet = sheet_id, skip = 1, col_types = "c")
     }
     cv$entries_data  <- read_gsheet(sheet_id = "entries")
+    cv$certs_data    <- read_gsheet(sheet_id = "certs")
     cv$projects_data <- read_gsheet(sheet_id = "projects")
     cv$lang_skills   <- read_gsheet(sheet_id = "language_skills")
     cv$other_skills  <- read_gsheet(sheet_id = "other_skills")
     cv$text_blocks   <- read_gsheet(sheet_id = "text_blocks")
     cv$contact_info  <- read_gsheet(sheet_id = "contact_info")
-  } else {
+  } else if ( stringr::str_detect(data_location, ".xlsx$")) {
+    
+    cv$entries_data  <- readxl::read_excel(data_location, 
+                                           sheet_id = "entries")
+    cv$certs_data    <- readxl::read_excel(data_location, 
+                                           sheet_id = "certs")
+    cv$projects_data <- readxl::read_excel(data_location,
+                                           sheet_id = "projects")
+    cv$lang_skills   <- readxl::read_excel(data_location,
+                                           sheet_id = "language_skills")
+    cv$other_skills  <- readxl::read_excel(data_location,
+                                           sheet_id = "other_skills")
+    cv$text_blocks   <- readxl::read_excel(data_location,
+                                           sheet_id = "text_blocks")
+    cv$contact_info  <- readxl::read_excel(data_location,
+                                           sheet_id = "contact_info")
+    
+    } else {
     # Want to go old-school with csvs?
     cv$entries_data  <- readr::read_csv(paste0(data_location,
                                                "entries.csv"), skip = 1)
+    cv$certs_data <- readr::read_csv(paste0(data_location,
+                                               "certs.csv"), skip = 1)
     cv$projects_data <- readr::read_csv(paste0(data_location,
                                                "projects.csv"), skip = 1)
     cv$lang_skills   <- readr::read_csv(paste0(data_location,
@@ -109,6 +130,34 @@ create_CV_object <-  function(data_location,
     dplyr::mutate_all(~ ifelse(is.na(.), 'N/A', .))
   
   cv$projects_data %<>%
+    tidyr::unite(
+      tidyr::starts_with('description'),
+      col = "description_bullets",
+      sep = "\n- ",
+      na.rm = TRUE
+    ) %>%
+    dplyr::mutate(
+      description_bullets = ifelse(description_bullets != "",
+                                   paste0("- ", description_bullets), ""),
+      start = ifelse(start == "NULL", NA, start),
+      end = ifelse(end == "NULL", NA, end),
+      start_year = extract_year(start),
+      end_year = extract_year(end),
+      no_start = is.na(start),
+      has_start = !no_start,
+      no_end = is.na(end),
+      has_end = !no_end,
+      timeline = dplyr::case_when(
+        no_start  & no_end  ~ "N/A",
+        no_start  & has_end ~ as.character(end),
+        has_start & no_end  ~ paste("Current", "-", start),
+        TRUE                ~ paste(end, "-", start)
+      )
+    ) %>%
+    dplyr::arrange(desc(parse_dates(end))) %>%
+    dplyr::mutate_all(~ ifelse(is.na(.), 'N/A', .))
+  
+  cv$certs_data %<>%
     tidyr::unite(
       tidyr::starts_with('description'),
       col = "description_bullets",
@@ -208,7 +257,7 @@ print_section <- function(cv, section_id, glue_template = "default"){
 }
 
 
-#' @description Print sections
+#' @description Print projects
 #' @param section_id ID of the entries section to be printed as encoded 
 #' by the `section` column of the `entries` table
 print_projects <- function(cv, glue_template = "default"){
@@ -244,6 +293,42 @@ _Funded by:_ {funder}
   invisible(strip_res$cv)
 }
 
+
+#' @description Print certificates and memberships
+#' @param section_id ID of the entries section to be printed as encoded 
+#' by the `section` column of the `entries` table
+print_certs_mems <- function(cv, section_id, glue_template = "default"){
+  
+  if(glue_template == "default"){
+    glue_template <- "
+### {title}
+
+{institution}
+    
+{loc}
+
+{timeline}
+    
+{description_bullets}
+\n\n\n"
+  }
+  
+  section_data <- dplyr::filter(cv$certs_data, section == section_id)
+  
+  # Take entire entries data frame and removes the links in descending order
+  # so links for the same position are right next to each other in number.
+  for(i in 1:nrow(section_data)){
+    for(col in c('title', 'description_bullets')){
+      strip_res <- sanitize_links(cv, section_data[i, col])
+      section_data[i, col] <- strip_res$text
+      cv <- strip_res$cv
+    }
+  }
+  
+  print(glue::glue_data(section_data, glue_template))
+  
+  invisible(strip_res$cv)
+}
 
 
 #' @description Prints out text block identified by a given label.
@@ -337,11 +422,20 @@ Links {data-icon=link}
 
 
 #' @description Contact information section with icons
-print_contact_info <- function(cv){
+print_contact_info <- function(cv, phone){
+  
+  if (phone) {
   glue::glue_data(
     cv$contact_info,
     "- <i class='fa fa-{icon}'></i> {contact}"
   ) %>% print()
+    
+  } else {
+    glue::glue_data(
+      cv$contact_info %>% dplyr::filter(loc != "phone"),
+      "- <i class='fa fa-{icon}'></i> {contact}"
+    ) %>% print()
+  }
 
   invisible(cv)
 }

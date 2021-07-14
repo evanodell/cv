@@ -16,7 +16,8 @@
 #' @return A new `CV_Printer` object.
 create_CV_object <-  function(data_location,
                               pdf_mode = FALSE,
-                              sheet_is_publicly_readable = TRUE) {
+                              sheet_is_publicly_readable = TRUE, 
+                              resume = FALSE) {
 
   cv <- list(
     pdf_mode = pdf_mode,
@@ -185,6 +186,14 @@ create_CV_object <-  function(data_location,
     dplyr::arrange(desc(parse_dates(end))) %>%
     dplyr::mutate_all(~ ifelse(is.na(.), 'N/A', .))
 
+  if (resume) {
+    tibble_list <- c("entries_data", "certs_data", "projects_data")
+    
+    for (i in tibble_list) {
+      cv[[i]] <- dplyr::filter(cv[[i]], in_resume == TRUE)
+    }
+  }
+  
   cv
 }
 
@@ -239,7 +248,8 @@ print_section <- function(cv, section_id, glue_template = "default"){
 \n\n\n"
   }
 
-  section_data <- dplyr::filter(cv$entries_data, section == section_id)
+  section_data <- dplyr::filter(cv$entries_data,
+                                section == section_id)
 
   # Take entire entries data frame and removes the links in descending order
   # so links for the same position are right next to each other in number.
@@ -308,8 +318,6 @@ print_certs_mems <- function(cv, section_id, glue_template = "default"){
 {loc}
 
 {timeline}
-    
-{description_bullets}
 \n\n\n"
   }
   
@@ -318,7 +326,7 @@ print_certs_mems <- function(cv, section_id, glue_template = "default"){
   # Take entire entries data frame and removes the links in descending order
   # so links for the same position are right next to each other in number.
   for(i in 1:nrow(section_data)){
-    for(col in c('title', 'description_bullets')){
+    for(col in c('title')){
       strip_res <- sanitize_links(cv, section_data[i, col])
       section_data[i, col] <- strip_res$text
       cv <- strip_res$cv

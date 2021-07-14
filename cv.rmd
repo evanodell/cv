@@ -65,6 +65,9 @@ if(params$pdf_mode){
 }
 ```
 
+
+
+
 Contact {#contact}
 --------------------------------------------------------------------------------
 
@@ -98,6 +101,9 @@ Disclaimer {#disclaimer}
 --------------------------------------------------------------------------------
 
 Last updated on `r Sys.Date()`.
+
+View CV source code at [github.com/evanodell/cv](https://github.com/evanodell/cv)
+
 
 
 

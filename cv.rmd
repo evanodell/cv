@@ -45,7 +45,7 @@ Aside
 
 ```{r}
 ## Headshot
-knitr::include_graphics("headshot.jpg")
+#knitr::include_graphics("headshot.jpg")
 ```
 
 ```{r}
@@ -145,19 +145,14 @@ CV %>% print_certs_mems('member')
 ```
 
 
-Certificates {data-icon=certificate}
---------------------------------------------------------------------------------
 ```{r}
-CV %<>% print_certs_mems("certs")
+#CV %<>% print_certs_mems("certs")
 ```
 
 
 
-Selected Projects {data-icon=file-alt}
---------------------------------------------------------------------------------
-
 ```{r}
-CV %<>% print_projects()
+#CV %<>% print_projects()
 ```
 
 <!-- These breaks just force a new page so section doesnt get cut off -->
@@ -166,12 +161,8 @@ CV %<>% print_projects()
 <br>
 
 
-
-Selected Publications and Reports {data-icon=book}
---------------------------------------------------------------------------------
-
 ```{r}
-CV %<>% print_section('writing')
+#CV %<>% print_section('writing')
 ```
 
 

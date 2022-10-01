@@ -137,12 +137,6 @@ CV %<>% print_section('jobs')
 ```
 
 
-Memberships {data-icon=building}
---------------------------------------------------------------------------------
-
-```{r}
-CV %>% print_certs_mems('member')
-```
 
 
 ```{r}

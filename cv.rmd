@@ -45,7 +45,7 @@ Aside
 
 ```{r}
 ## Headshot
-#knitr::include_graphics("headshot.jpg")
+#knitr::include_graphics("headshot-narrow.jpg")
 ```
 
 ```{r}
